@@ -25,8 +25,11 @@ namespace poc_api.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
         {
+            if(!ModelState.IsValid)
+            {
+                throw new InvalidOperationException("Invalid Operations");
+            }
         }
 
         // PUT api/values/5
@@ -41,4 +44,15 @@ namespace poc_api.Controllers
         {
         }
     }
+
+    public class Value
+    {
+        public int Id { get; set; }
+
+        //Text has to be 3 if not then modelstate will not be valid
+        [MinLength(3)]
+        public string Text { get; set; }
+
+    }
+
 }
